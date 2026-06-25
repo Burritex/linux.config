@@ -1,0 +1,12 @@
+{
+    "custom/light":{
+        "exec": "brightnessctl -m | cut -d, -f4 | tr -d '%'",
+        "interval": 10,
+        "format": "󱄄",
+        "on-click": "brightnessctl set +10%",
+        "on-click-right": "brightnessctl set 10%-",
+        "on-click-middle": "brightnessctl set 80%",
+        "tooltip": true,
+        "tooltip-format": "Controles:\nbotão esquerdo󰍽 -> aumenta o brilho\nbotão direito󰍽 -> diminui o brilho"
+    }
+}

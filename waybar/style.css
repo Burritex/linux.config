@@ -1,0 +1,190 @@
+/*
+    Config geral
+*/
+
+*{
+    color: #dcdcdc;
+    border: 0;
+    border-radius: 0;
+    padding: 0.2px 0;
+    font-family: 'JetBrainsMono Nerd Font';
+    font-size: 14px;
+    padding-bottom: 2px;
+    margin: 0 4px;
+}
+
+window#waybar{
+    background: rgba(0, 0, 0, 0.65);
+    border-radius: 0 0 10px 10px;
+}
+
+#workspaces button{
+    padding: 2px 5px 2px 0;
+    border-bottom: 3px;
+    color: #eceff4;
+    border-color: #d8dee9;
+    border-style: solid;
+    margin-top:2px;
+    border-radius: 2px;
+}
+
+#clock, #battery, #cpu, #memory,#idle_inhibitor, #temperature,#custom-keyboard-layout, #backlight, #network, #pulseaudio, #tray, #window,#custom-launcher,#custom-power,#custom-updates ,#custom-network_traffic,#custom-weather,
+#custom-wallpaper, #bluetooth, #disk, #custom-light{
+    padding: 0 3px;
+    border-bottom: 2px;
+    border-style: solid;
+}
+
+#custom-light{
+    padding-right: 8px;
+}
+
+/*
+    Module Style
+*/
+
+#workspaces button:nth-child(5) { 
+    border-color: #ffef78;
+    padding-left: 3px;
+    padding-right: 1px;
+} 
+#workspaces button:nth-child(4) {
+    border-color: #ffa10c; 
+} 
+#workspaces button:nth-child(3) { 
+    border-color: #ff4360; 
+}
+#workspaces button:nth-child(2) {
+    border-color: #ff059d;
+} 
+#workspaces button:nth-child(1) { 
+    border-color: #be29ec;  
+}
+
+#workspaces button:nth-child(5).active { 
+    background: #ffef78;
+    padding: 2px 5px 2px 0;
+    box-shadow: 0 4px 16px #ffef78;
+} 
+#workspaces button:nth-child(4).active {
+    background: #ffa10c;
+    box-shadow: 0 4px 16px #ffa10c;
+} 
+#workspaces button:nth-child(3).active { 
+    background: #ff4360;
+    box-shadow: 0 4px 16px #ff4360;
+}
+#workspaces button:nth-child(2).active {
+    background: #ff059d;
+    box-shadow: 0 4px 16px #ff059d;
+} 
+#workspaces button:nth-child(1).active { 
+    background: #be29ec;  
+    box-shadow: 0 4px 16px #be29ec;
+}
+
+#workspaces button.active { 
+    border-color: #6a00fc;
+    border-radius: 8px;
+}
+
+#backlight,
+#custom-wallpaper,
+#custom-light,
+#clock.time {
+    color: #be29ec;
+}
+
+#battery {
+    color: #6a00fc;
+}
+
+
+@keyframes blink {
+    to {
+        color: #4c566a;
+        background-color: #eceff4;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background: #bf616a;
+    color: #eceff4;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#cpu,
+#memory {
+    color:#ffa10c ;
+}
+
+#network.disabled {
+    color:#bf616a;
+}
+
+#network,
+#clock.date{
+    color:#ff059d;;
+}
+
+#network.disconnected {
+    color: #bf616a;
+}
+
+#bluetooth{
+    color:#00BFFF;
+}
+
+#pulseaudio,
+#bluetooth.connected {
+    color: #ff4360;
+}
+
+#pulseaudio.muted,
+#bluetooth.disabled {
+    color: #e20548;
+}
+
+#temperature,
+#disk {
+    color: #ffef78;
+}
+
+#temperature.critical {
+    color: #bf616a;
+}
+
+#idle_inhibitor {
+   color: #ebcb8b;
+}
+
+
+#custom-launcher{
+        font-size: 20px;
+        background-image: url('/home/dougnizando/.config/waybar/launcher.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        border-style: hidden;
+}
+
+#custom-power{
+    border-style: hidden;
+    margin-top:2px;
+}
+
+#window{
+    border-style: hidden;
+    margin-top:1px;
+}
+
+#custom-keyboard-layout{
+   color:#6a00fc;
+}
+#custom-network_traffic{
+   color:#d08770;
+}

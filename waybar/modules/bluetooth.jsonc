@@ -1,0 +1,21 @@
+{
+    "bluetooth": {
+        "format": "{icon}",
+        "format-icons": {
+            "default": "",
+            "off": "󰂲",
+            "disabled": "󰂲",
+            "on": "󰂰",
+            "connected": "󰂱"
+        },
+        "format-connected-battery": "󰋋󰂱 {device_battery_percentage}%",
+        "tooltip-format": "Device Addr: {device_address}",
+		"tooltip-format-disabled": "Bluetooth Disabled",
+		"tooltip-format-off": "Bluetooth Off",
+		"tooltip-format-on": "Bluetooth Disconnected",
+		"tooltip-format-connected": "Device: {device_alias}",
+		"tooltip-format-connected-battery": "Device: {device_alias}\nBattery: {device_battery_percentage}%",
+        "on-click" : "blueman-manager",
+        "interval": 60
+    }
+}

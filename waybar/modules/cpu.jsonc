@@ -1,0 +1,12 @@
+{
+    "cpu": {
+        "interval": 5,
+        "format": " {icon}",
+        "format-icons": ["󰝦","󰪞","󰪟","󰪠","󰪡","󰪢","󰪣","󰪤","󰪥"],
+        "states": {
+			"warning": 70,
+			"critical": 90
+		},
+        "tooltip": true
+    }
+}
