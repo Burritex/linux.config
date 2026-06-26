@@ -1,0 +1,19 @@
+{
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{icon} {volume}%",
+        "format-muted": "{icon} MUTE",
+        "format-icons": {
+            "default": ["", "", ""],
+            "default-muted": "",
+            "headphone": "󰋋",
+            "headphone-muted": "󰟎",
+            "headset": "󰋎",
+            "headset-muted": "󰋐"
+        },
+        "on-click-right": "pavucontrol",
+        "on-click": "pamixer -t",
+        "tooltip": true,
+        "tooltip-format": "Dispositivo de saida:\n{icon} {desc}\n\nControles :\nClick 󰍽 - MUTE\nRoll up: 󰍽  - Voleme +\nRoll down 󰍽 - Voleme -"
+    }
+}

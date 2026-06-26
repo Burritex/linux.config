@@ -1,0 +1,16 @@
+{
+    "network": {
+        "tooltip": true,
+        "format-wifi": "{icon} {essid}",
+        "tooltip-format-wifi": "{essid} {icon}\nIP 󰩠 : {ipaddr}\nStrength 󰤩 : {signalStrength}%\nFreq  : {frequency}MHz\n\nVelocidade de rede 󰓅 :\nUpload 󰕒 : {bandwidthUpBits} Download 󰇚 : {bandwidthDownBits}",
+        "format-icons": ["󰤯","󰤟", "󰤢", "󰤥", "󰤨"],
+        "format-ethernet": "󰈀 on",
+        "tooltip-format-ethernet": "Interface  - {ifname}\nGetway 󱂇 : {gwaddr}\n\nVelocidade de rede 󰓅 :\nUpload 󰕒 : {bandwidthUpBits} Download 󰇚 : {bandwidthDownBits}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "⚠ Disabled",
+        "interval": 2,
+        "rotate": 0,
+        "on-click-right": "kitty -e nmtui",
+        "on-click": "nm-connection-editor"
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "include": [
+        "~/.config/waybar/modules/clock.jsonc",
+        "~/.config/waybar/modules/network.jsonc",
+        "~/.config/waybar/modules/battery.jsonc",
+        "~/.config/waybar/modules/bluetooth.jsonc",
+        "~/.config/waybar/modules/pulseaudio.jsonc",
+        "~/.config/waybar/modules/memory.jsonc",
+        "~/.config/waybar/modules/cpu.jsonc",
+        "~/.config/waybar/modules/disk.jsonc",
+        "~/.config/waybar/modules/temperature.jsonc",
+		"~/.config/waybar/modules/pc_health.jsonc",
+		"~/.config/waybar/modules/tray.jsonc",
+
+		"~/.config/waybar/modules/hyprland/workspaces.jsonc",
+		"~/.config/waybar/modules/hyprland/window.jsonc",
+
+		"~/.config/waybar/modules/custom/dividers.jsonc",
+		"~/.config/waybar/modules/custom/wallpaper.jsonc",
+		"~/.config/waybar/modules/custom/keyboard-layout.jsonc",
+		"~/.config/waybar/modules/custom/light.jsonc"
+    ],
+
+    "modules-left": [
+        "custom/keyboard-layout",
+        "custom/divider#1",
+        "cpu",
+        "memory",
+        "custom/divider#1",
+        "temperature",
+        "disk"
+    ],
+    "modules-right": [
+        "bluetooth",
+        "pulseaudio",
+        "custom/divider#1",
+        "network",
+        "custom/light",
+        "custom/divider#1",
+        "battery"
+    ],
+    "modules-center": [
+        "custom/divider#1",
+        "clock#date",
+        "clock#time",
+        "custom/divider#1"
+    ],
+
+    "layer": "top",
+    "position": "top",
+    "height": 23,
+    "width": "auto",
+    "margin": "0",
+    "spacing":0,
+    "all-outputs": true,
+    "swap-icon-label": true
+}

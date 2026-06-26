@@ -1,0 +1,18 @@
+{
+    "include": [
+        "~/.config/waybar/modules/cpu.jsonc",
+        "~/.config/waybar/modules/temperature.jsonc",
+        "~/.config/waybar/modules/disk.jsonc",
+        "~/.config/waybar/modules/tray.jsonc"
+    ],
+    "group/pc_health": {
+        "orientation": "horizontal",
+        "modules": [
+            "cpu","tray", "temperature", "disk"
+        ],
+        "drawer": {
+            "click-to-reveal": false,
+            "transition-left-to-right": false
+        }
+    }
+}
