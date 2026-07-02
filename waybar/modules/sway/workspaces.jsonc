@@ -1,5 +1,5 @@
 {
-    "hyprland/workspaces": {
+    "sway/workspaces": {
         "format": "{icon}",
         "format-icons": {
             "1": "",
@@ -8,8 +8,8 @@
             "4": "",
             "5": "󱎓",
             "default": "󱢢",
-            "alert": "󰀦",
-            "active": "󰭟"
+            "urgent": "󰀦",
+            "focused": "󰭟"
         },
         "on-click": "activate",
         "all-outputs": true

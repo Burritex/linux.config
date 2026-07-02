@@ -1,8 +1,0 @@
-{
-    "custom/wallpaper": {
-        "format": "",
-        "tooltip": true,
-        "tooltip-format": "click here to change the wallpaper!",
-        "on-click": "killall -9 wpaperd && wpaperd"
-    }
-}

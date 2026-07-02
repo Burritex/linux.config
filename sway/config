@@ -12,13 +12,12 @@ set $fileManager dolphin
 #                                     AUTOSTART                               #
 ###############################################################################
 exec $term
-exec pkill waybar
 exec mako
 exec nm-applet --indicator
 exec_always blueman-applet
-exec_always waybar &
 exec_always /usr/lib/polkit-1
 exec_always kbuildsycoca6
+exec_always waybar -c ~/.config/waybar/config-sway.jsonc -s ~/.config/waybar/style/sway.css &
 
 
 ###############################################################################
@@ -70,7 +69,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+m exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
-bindsym $mod+Shift+B exec pkill waybar && waybar &
+bindsym $mod+Shift+B exec pkill waybar && waybar -c ~/.config/waybar/config-sway.jsonc -s ~/.config/waybar/style/sway.css &
 
 # Abrir configurações no VS Code e Nano
 bindsym $mod+O exec code-oss .config

@@ -5,7 +5,7 @@ My linux .config
 
 ### Packages:
 ```     
-	sudo xbps-install -S xorg mesa zsh NetworkManager nano git xdg-user-dirs zsh nerd-fonts-ttf google-fonts-ttf blueman bluez pipewire alsa-pipewire libjack-pipewire wireplumber kitty firefox sway rofi pulseaudio pulseaudio-utils Waybar mako gst-libav gst-plugins-base1 gst-plugins-bad1 gst-plugins-good1 gst-plugins-ugly1 ffmpeg kio-admin polkit-kde-agent qt5-wayland qt6-wayland xdg-desktop-portal xdg-desktop-portal-gtk dunst cliphist mpv gnome-keyring breeze breeze-gtk papirus-icon-theme nwg-look kde-cli-tools
+	sudo xbps-install -S xorg mesa NetworkManager nano git xdg-user-dirs zsh nerd-fonts-ttf google-fonts-ttf blueman bluez pipewire alsa-pipewire libjack-pipewire wireplumber kitty firefox sway rofi pulseaudio pulseaudio-utils Waybar mako gst-libav gst-plugins-base1 gst-plugins-bad1 gst-plugins-good1 gst-plugins-ugly1 ffmpeg kio-admin polkit-kde-agent qt5-wayland qt6-wayland xdg-desktop-portal xdg-desktop-portal-gtk dunst cliphist mpv gnome-keyring breeze breeze-gtk papirus-icon-theme nwg-look kde-cli-tools elogind dolphin dolphin-plugins wlogout qView vscode qt5ct qt6ct pamixer pavucontrol
 ```
 
 ### Habilitanto serviços:

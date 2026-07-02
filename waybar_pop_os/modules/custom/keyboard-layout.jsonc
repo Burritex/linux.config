@@ -1,9 +1,0 @@
-{
-    "custom/keyboard-layout": {
-      	"format": " ", // Icon: keyboard
-        "on-click": "~/.config/waybar/scripts/keyhint.sh",
-        "on-click-right": "exec nwg-drawer -c 7 -is 70 -spacing 23",
-        "tooltip": true,
-        "tooltip-format": "Cheat list!"
-    }
-}

@@ -1,47 +1,5 @@
-/*
-    Config geral
-*/
+@import "base.css";
 
-*{
-    color: #dcdcdc;
-    border: 0;
-    border-radius: 0;
-    padding: 0.2px 0;
-    font-family: 'JetBrainsMono Nerd Font';
-    font-size: 14px;
-    padding-bottom: 2px;
-    margin: 0 4px;
-}
-
-window#waybar{
-    background: rgba(0, 0, 0, 0.65);
-    border-radius: 0 0 10px 10px;
-}
-
-#workspaces button{
-    padding: 2px 5px 2px 0;
-    border-bottom: 3px;
-    color: #eceff4;
-    border-color: #d8dee9;
-    border-style: solid;
-    margin-top:2px;
-    border-radius: 2px;
-}
-
-#clock, #battery, #cpu, #memory,#idle_inhibitor, #temperature,#custom-keyboard-layout, #backlight, #network, #pulseaudio, #tray, #window,#custom-launcher,#custom-power,#custom-updates ,#custom-network_traffic,#custom-weather,
-#custom-wallpaper, #bluetooth, #disk, #custom-light{
-    padding: 0 3px;
-    border-bottom: 2px;
-    border-style: solid;
-}
-
-#custom-light{
-    padding-right: 8px;
-}
-
-/*
-    Module Style
-*/
 
 #workspaces button:nth-child(5) { 
     border-color: #ffef78;
@@ -88,11 +46,15 @@ window#waybar{
     border-radius: 8px;
 }
 
-@keyframes blink {
-    to {
-        color: #4c566a;
-        background-color: #eceff4;
-    }
+#backlight,
+#custom-wallpaper,
+#custom-light,
+#clock.time {
+    color: #be29ec;
+}
+
+#battery {
+    color: #6a00fc;
 }
 
 #battery.critical:not(.charging) {
@@ -107,36 +69,17 @@ window#waybar{
 
 #cpu,
 #memory {
-    color: #ffef78;
-}
-
-#temperature,
-#disk {
     color:#ffa10c ;
-}
-
-#clock{
-    color: #ff4360;
-}
-
-#pulseaudio,
-#bluetooth.connected{
-    color:#ff059d;;
-}
-
-#custom-light,
-#network{
-    color: #be29ec;
-}
-
-#battery {
-    color: #6a00fc;
 }
 
 #network.disabled {
     color:#bf616a;
 }
 
+#network,
+#clock.date{
+    color:#ff059d;;
+}
 
 #network.disconnected {
     color: #bf616a;
@@ -146,9 +89,19 @@ window#waybar{
     color:#00BFFF;
 }
 
+#pulseaudio,
+#bluetooth.connected {
+    color: #ff4360;
+}
+
 #pulseaudio.muted,
 #bluetooth.disabled {
     color: #e20548;
+}
+
+#temperature,
+#disk {
+    color: #ffef78;
 }
 
 #temperature.critical {
@@ -157,26 +110,6 @@ window#waybar{
 
 #idle_inhibitor {
    color: #ebcb8b;
-}
-
-
-#custom-launcher{
-        font-size: 20px;
-        background-image: url('/home/dougnizando/.config/waybar/launcher.png');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        border-style: hidden;
-}
-
-#custom-power{
-    border-style: hidden;
-    margin-top:2px;
-}
-
-#window{
-    border-style: hidden;
-    margin-top:1px;
 }
 
 #custom-keyboard-layout{
