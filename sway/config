@@ -19,7 +19,6 @@ exec_always /usr/lib/polkit-1
 exec_always kbuildsycoca6
 exec_always waybar -c ~/.config/waybar/config-sway.jsonc -s ~/.config/waybar/style/sway.css &
 
-
 ###############################################################################
 #                                   OUTPUT                                    #
 ###############################################################################
@@ -118,9 +117,9 @@ bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+b splith
 bindsym $mod+v splitv
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+j layout toggle split
-bindsym $mod+f fullscreen
+bindsym $mod+f layout tabbed
+bindsym $mod+Shift+f layout toggle split
+# bindsym $mod+f fullscreen
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent

@@ -6,27 +6,23 @@
         "~/.config/waybar/modules/bluetooth.jsonc",
         "~/.config/waybar/modules/pulseaudio.jsonc",
         "~/.config/waybar/modules/memory.jsonc",
-        "~/.config/waybar/modules/pc_health.jsonc",
+		"~/.config/waybar/modules/pc_health.jsonc",
 
-        "~/.config/waybar/modules/sway/workspaces.jsonc",
-        "~/.config/waybar/modules/sway/window.jsonc",
+		"~/.config/waybar/modules/hyprland/workspaces.jsonc",
+		"~/.config/waybar/modules/hyprland/window.jsonc",
 
-        "~/.config/waybar/modules/custom/dividers.jsonc",
-        "~/.config/waybar/modules/custom/wallpaper.jsonc",
-        "~/.config/waybar/modules/custom/keyboard-layout.jsonc",
-        "~/.config/waybar/modules/custom/light.jsonc"
+		"~/.config/waybar/modules/custom/dividers.jsonc",
+		"~/.config/waybar/modules/custom/wallpaper.jsonc",
+		"~/.config/waybar/modules/custom/keyboard-layout.jsonc",
+		"~/.config/waybar/modules/custom/light.jsonc"
     ],
 
     "modules-left": [
-        "sway/workspaces",
+        "custom/keyboard-layout",
         "custom/divider#1",
-        "sway/window"
-    ],
-    "modules-center": [
+        "hyprland/workspaces",
         "custom/divider#1",
-        "clock#date",
-        "clock#time",
-        "custom/divider#1"
+        "hyprland/window"
     ],
     "modules-right": [
         "group/pc_health",
@@ -35,7 +31,13 @@
         "bluetooth",
         "pulseaudio",
         "custom/divider#1",
-        "network"
+        "network",
+        "clock#date",
+        "custom/divider#1",
+        "custom/light",
+        "clock#time",
+        "custom/divider#1",
+        "battery"
     ],
 
     "layer": "top",

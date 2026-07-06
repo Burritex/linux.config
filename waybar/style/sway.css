@@ -79,13 +79,13 @@
     color:#00BFFF;
 }
 
-#cpu,
-#memory {
-    color: #ff4360
+#memory,
+#temperature {
+    color: #ff4360;
 }
 
-#temperature,
-#disk {
+#disk,
+#cpu {
     color: #ffa10c;
 }
 
