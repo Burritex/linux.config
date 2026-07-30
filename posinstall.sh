@@ -9,39 +9,75 @@ SEM_COR='\e[0m'
 # -------------------------------TESTES E REQUISITOS----------------------------------------- #
 # Internet conectando?
 testes_internet(){
-if ! ping -c 1 8.8.8.8 -q &> /dev/null; then
-  echo -e "${VERMELHO}[ERROR] - Seu computador não tem conexão com a Internet. Verifique a rede.${SEM_COR}"
-  exit 1
-else
-  echo -e "${VERDE}[INFO] - Conexão com a Internet funcionando normalmente.${SEM_COR}"
-fi
+    if ! ping -c 1 8.8.8.8 -q &> /dev/null; then
+    echo -e "${VERMELHO}[ERROR] - Seu computador não tem conexão com a Internet. Verifique a rede.${SEM_COR}"
+    exit 1
+    else
+    echo -e "${VERDE}[INFO] - Conexão com a Internet funcionando normalmente.${SEM_COR}"
+    fi
 }
 
 ## Atualizando Sistema ##
-att_system_void(){
+atualizar_sistema(){
     echo -e "${VERDE}[INFO] - Atualizando repositórios e pacotes...${SEM_COR}"
-    if ! sudo xbps-install -Suy; then
-        echo -e "${VERMELHO}[ERROR] - Falha ao atualizar o sistema.${SEM_COR}"
-        exit 1
-    fi
+
+    case $DISTRO in
+        void)
+            if ! sudo xbps-install -Suy; then
+                echo -e "${VERMELHO}[ERROR] - Falha ao atualizar o sistema.${SEM_COR}"
+                exit 1
+            fi
+        ;;
+        arch)
+            if ! sudo pacman -Syu; then
+                echo -e "${VERMELHO}[ERROR] - Falha ao atualizar o sistema.${SEM_COR}"
+                exit 1
+            fi
+        ;;
+        *)
+            if ! sudo apt update; then
+                echo -e "${VERMELHO}[ERROR] - Falha ao atualizar repositórios.${SEM_COR}"
+                exit 1
+            fi
+            if ! sudo apt upgrade -y; then
+                echo -e "${VERMELHO}[ERROR] - Falha ao atualizar pacotes.${SEM_COR}"
+                exit 1
+            fi
+        ;;
+    esac
 }
 
 ## Instalando pacotes Flatpak ##
-install_flatpaks(){
+instalar_flatpak_binario(){
+    case "$DISTRO" in
+        void)
+            sudo xbps-install -Sy flatpak
+        ;;
+        arch)
+            sudo pacman -S --noconfirm flatpak
+        ;;
+        *)
+            sudo apt install -y flatpak
+        ;;
+    esac
+}
 
-    # instalar flatpak
-    echo "Baixando flatpak"
-    if ! xbps-install -Sy flatpak
-    then
-        echo "Falha ao instalar o flatpak"
+install_flatpaks(){
+    echo -e "${VERDE}[INFO] - Instalando flatpak...${SEM_COR}"
+    if ! instalar_flatpak_binario; then
+        echo -e "${VERMELHO}[ERROR] - Falha ao instalar o flatpak${SEM_COR}"
         exit 1
     fi
-    echo "${VERDE}Flatpak instalado com sucesso${SEM_COR}"
-    echo -e "${VERDE}[INFO] - Instalando pacotes flatpak${SEM_COR}"
+    echo -e "${VERDE}[INFO] - Flatpak instalado com sucesso${SEM_COR}"
 
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-    flatpak install flathub com.google.Chrome -y
-    flatpak install flathub org.flameshot.Flameshot -y
+
+    FLATPAKS=("com.google.Chrome" "org.flameshot.Flameshot")
+    for app in "${FLATPAKS[@]}"; do
+        if ! flatpak install flathub "$app" -y; then
+            echo -e "${VERMELHO}[ERROR] - Falha ao instalar $app${SEM_COR}"
+        fi
+    done
 }
 
 ## VoidLinux ##
@@ -118,13 +154,50 @@ programas_para_instalar_arch=(
     "blueman"
     "zsh"
     "git"
+    "base-devel"
 )
 
-instalando_aur_yay(){
+programas_para_instalar_aur=(
+    "pacseek"
+)
 
+instalar_yay(){
+    echo -e "${VERDE}[INFO] - Verificando yay...${SEM_COR}"
+
+    if command -v yay &> /dev/null; then
+        echo -e "${VERDE}[JÁ INSTALADO] - yay${SEM_COR}"
+        return 0
+    fi
+
+    echo -e "${VERDE}[INFO] - Instalando dependências (git, base-devel)...${SEM_COR}"
+    if ! sudo pacman -S --needed --noconfirm git base-devel; then
+        echo -e "${VERMELHO}[ERROR] - Falha ao instalar dependências do yay${SEM_COR}"
+        return 1
+    fi
+
+    local diretorio_temp
+    diretorio_temp=$(mktemp -d)
+
+    echo -e "${VERDE}[INFO] - Clonando repositório do yay...${SEM_COR}"
+    if ! git clone https://aur.archlinux.org/yay.git "$diretorio_temp"; then
+        echo -e "${VERMELHO}[ERROR] - Falha ao clonar o repositório do yay${SEM_COR}"
+        rm -rf "$diretorio_temp"
+        return 1
+    fi
+
+    echo -e "${VERDE}[INFO] - Compilando e instalando yay...${SEM_COR}"
+    if (cd "$diretorio_temp" && makepkg -si --noconfirm); then
+        echo -e "${VERDE}[INFO] - yay instalado com sucesso${SEM_COR}"
+    else
+        echo -e "${VERMELHO}[ERROR] - Falha ao compilar/instalar o yay${SEM_COR}"
+        rm -rf "$diretorio_temp"
+        return 1
+    fi
+
+    rm -rf "$diretorio_temp"
 }
 
-servicos_para_iniciar_arch=( 
+servicos_para_iniciar=( 
     "pipewire" 
     "pipewire-pulse" 
     "wireplumber" 
@@ -137,11 +210,11 @@ servicos_para_iniciar_arch=(
 habilitando_servicos(){
         echo -e "${VERDE}[INFO] - Habilitando Serviços${SEM_COR}"
 
-    case "$distro" in
+    case "$DISTRO" in
         void)
             ## Runit ##
 
-            for nome_servico in "${servicos_para_iniciar[@]}"; do
+            for nome_servico in "${servicos_para_iniciar_void[@]}"; do
                 if [ -L /var/service/"$nome_servico" ]; then
                     echo -e "${VERDE}[JÁ HABILITADO] - $nome_servico${SEM_COR}"
                 elif [ ! -d /etc/sv/"$nome_servico" ]; then
@@ -176,12 +249,53 @@ habilitando_servicos(){
 instalando_programas(){
     echo -e "${VERDE}[INFO] - Instalando pacotes xbps${SEM_COR}"
 
-    for nome_do_programa in "${programas_para_instalar[@]}"; do
-        if xbps-query -l | grep -q " ${nome_do_programa}-"; then
+    case "$DISTRO" in
+        void)
+            for nome_do_programa in "${programas_para_instalar_void[@]}"; do
+                if xbps-query -l | grep -q " ${nome_do_programa}-"; then
+                    echo -e "${VERDE}[INSTALADO] - ${nome_do_programa}${SEM_COR}"
+                else
+                    echo -e "${VERDE}[INFO] - Instalando ${nome_do_programa}...${SEM_COR}"
+                    if ! sudo xbps-install -Sy "$nome_do_programa"; then
+                        echo -e "${VERMELHO}[ERROR] - Falha ao instalar ${nome_do_programa}${SEM_COR}"
+                    fi
+                fi
+            done
+        ;;
+        arch)
+            for nome_do_programa in "${programas_para_instalar_arch[@]}"; do
+                if pacman -Q "$nome_do_programa" &> /dev/null; then
+                    echo -e "${VERDE}[INSTALADO] - ${nome_do_programa}${SEM_COR}"
+                else
+                    echo -e "${VERDE}[INFO] - Instalando ${nome_do_programa}...${SEM_COR}"
+                    if ! sudo pacman -S --noconfirm "$nome_do_programa"; then
+                        echo -e "${VERMELHO}[ERROR] - Falha ao instalar ${nome_do_programa}${SEM_COR}"
+                    fi
+                fi
+            done
+        ;;
+        *)
+            for nome_do_programa in "${programas_para_instalar_apt[@]}"; do
+                if dpkg -l | grep -qw "$nome_do_programa"; then
+                    echo -e "${VERDE}[INSTALADO] - ${nome_do_programa}${SEM_COR}"
+                else
+                    echo -e "${VERDE}[INFO] - Instalando ${nome_do_programa}...${SEM_COR}"
+                    if ! sudo apt install -y "$nome_do_programa"; then
+                        echo -e "${VERMELHO}[ERROR] - Falha ao instalar ${nome_do_programa}${SEM_COR}"
+                    fi
+                fi
+            done
+        ;;
+    esac
+}
+
+instalando_programas_aur(){
+    for nome_do_programa in "${programas_para_instalar_aur[@]}"; do
+        if yay -Q "$nome_do_programa" &> /dev/null; then
             echo -e "${VERDE}[INSTALADO] - ${nome_do_programa}${SEM_COR}"
         else
             echo -e "${VERDE}[INFO] - Instalando ${nome_do_programa}...${SEM_COR}"
-            if ! sudo xbps-install -Sy "$nome_do_programa"; then
+            if ! yay -Sy --noconfirm "$nome_do_programa"; then
                 echo -e "${VERMELHO}[ERROR] - Falha ao instalar ${nome_do_programa}${SEM_COR}"
             fi
         fi
@@ -193,10 +307,30 @@ criar_diretorios_usuario(){
     xdg-user-dirs-update
 }
 
+detectar_distro(){
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        DISTRO=$ID
+        echo -e "${VERDE}[INFO] - Distro detectada: $DISTRO${SEM_COR}"
+    else
+        echo -e "${VERMELHO}[ERROR] - Não foi possível detectar a distribuição.${SEM_COR}"
+        exit 1
+    fi
+}
+
 # -------------------------------EXECUÇÃO----------------------------------------- #
 testes_internet
-att_system
+detectar_distro
+atualizar_sistema
 install_flatpaks
 instalando_programas
-habilitando_servicos
+
+case $DISTRO in
+    arch)
+        instalar_yay
+        instalando_programas_aur
+    ;;
+esac
+
 criar_diretorios_usuario
+habilitando_servicos
