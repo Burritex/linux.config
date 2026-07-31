@@ -6,14 +6,111 @@ VERDE='\e[1;92m'
 SEM_COR='\e[0m'
 
 
+## Programas para instalar ##
+programas_para_instalar_void=(
+    "git"
+    "wget"
+    "leafpad"
+    "kitty"
+    "vscode"
+    "xorg"
+    "mesa" 
+    "NetworkManager" 
+    "nano"
+    "xdg-user-dirs" 
+    "zsh"
+    "nerd-fonts-ttf" 
+    "google-fonts-ttf" 
+    "blueman" 
+    "bluez" 
+    "pipewire" 
+    "alsa-pipewire" 
+    "libjack-pipewire" 
+    "wireplumber"
+    "pulseaudio" 
+    "pulseaudio-utils"
+    "gst-libav" 
+    "gst-plugins-base1" 
+    "gst-plugins-bad1" 
+    "gst-plugins-good1" 
+    "gst-plugins-ugly1" 
+    "ffmpeg"
+    "xdg-desktop-portal" 
+    "xdg-desktop-portal-gtk"
+    "breeze" 
+    "breeze-gtk" 
+    "papirus-icon-theme" 
+    "nwg-look"
+    "pamixer" 
+    "pavucontrol"
+    "xdg-user-dirs"
+)
+
+programas_para_instalar_apt=(
+    "kitty"
+)
+
+programas_para_instalar_arch=(
+    "pipewire" 
+    "pipewire-alsa" 
+    "pipewire-jack" 
+    "pipewire-pulse" 
+    "wireplumber" 
+    "gstreamer" 
+    "gst-libav" 
+    "gst-plugins-base" 
+    "gst-plugins-good" 
+    "gst-plugins-bad" 
+    "gst-plugins-ugly" 
+    "ffmpeg"
+    "kitty"
+    "xdg-desktop-portal-gtk"
+    "pavucontrol" 
+    "xdg-user-dirs-gtk" 
+    "ttf-font-awesome" 
+    "ttf-jetbrains-mono-nerd"
+    "breeze" 
+    "breeze5" 
+    "breeze-gtk" 
+    "papirus-icon-theme" 
+    "nwg-look" 
+    "networkmanager" 
+    "blueman"
+    "zsh"
+    "git"
+    "base-devel"
+)
+
+programas_para_instalar_aur=(
+    "pacseek"
+)
+
+## Serviços para iniciar ##
+servicos_para_iniciar_void=(
+    "NetworkManager"
+    "bluetoothd"
+)
+
+servicos_para_iniciar_arch=( 
+    "pipewire" 
+    "pipewire-pulse" 
+    "wireplumber" 
+    "bluetooth.service" 
+    "NetworkManager.service"
+)
+
+servicos_para_iniciar_apt=(
+
+)
+
 # -------------------------------TESTES E REQUISITOS----------------------------------------- #
 # Internet conectando?
 testes_internet(){
     if ! ping -c 1 8.8.8.8 -q &> /dev/null; then
-    echo -e "${VERMELHO}[ERROR] - Seu computador não tem conexão com a Internet. Verifique a rede.${SEM_COR}"
-    exit 1
+        echo -e "${VERMELHO}[ERROR] - Seu computador não tem conexão com a Internet. Verifique a rede.${SEM_COR}"
+        exit 1
     else
-    echo -e "${VERDE}[INFO] - Conexão com a Internet funcionando normalmente.${SEM_COR}"
+        echo -e "${VERDE}[INFO] - Conexão com a Internet funcionando normalmente.${SEM_COR}"
     fi
 }
 
@@ -29,7 +126,7 @@ atualizar_sistema(){
             fi
         ;;
         arch)
-            if ! sudo pacman -Syu; then
+            if ! sudo pacman -Syu --noconfirm; then
                 echo -e "${VERMELHO}[ERROR] - Falha ao atualizar o sistema.${SEM_COR}"
                 exit 1
             fi
@@ -80,87 +177,6 @@ install_flatpaks(){
     done
 }
 
-## VoidLinux ##
-programas_para_instalar_void=(
-    "git"
-    "wget"
-    "leafpad"
-    "kitty"
-    "vscode"
-    "xorg"
-    "mesa" 
-    "NetworkManager" 
-    "nano"
-    "xdg-user-dirs" 
-    "zsh"
-    "nerd-fonts-ttf" 
-    "google-fonts-ttf" 
-    "blueman" 
-    "bluez" 
-    "pipewire" 
-    "alsa-pipewire" 
-    "libjack-pipewire" 
-    "wireplumber"
-    "pulseaudio" 
-    "pulseaudio-utils"
-    "gst-libav" 
-    "gst-plugins-base1" 
-    "gst-plugins-bad1" 
-    "gst-plugins-good1" 
-    "gst-plugins-ugly1" 
-    "ffmpeg"
-    "xdg-desktop-portal" 
-    "xdg-desktop-portal-gtk"
-    "breeze" 
-    "breeze-gtk" 
-    "papirus-icon-theme" 
-    "nwg-look"
-    "pamixer" 
-    "pavucontrol"
-    "xdg-user-dirs"
-)
-
-servicos_para_iniciar_void=(
-    "NetworkManager"
-    "bluetoothd"
-)
-
-## ArchLinux ##
-programas_para_instalar_arch=(
-    "pipewire" 
-    "pipewire-alsa" 
-    "pipewire-jack" 
-    "pipewire-pulse" 
-    "wireplumber" 
-    "gstreamer" 
-    "gst-libav" 
-    "gst-plugins-base" 
-    "gst-plugins-good" 
-    "gst-plugins-bad" 
-    "gst-plugins-ugly" 
-    "ffmpeg"
-    "kitty"
-    "xdg-desktop-portal-gtk"
-    "pavucontrol" 
-    "xdg-user-dirs-gtk" 
-    "ttf-font-awesome" 
-    "ttf-jetbrains-mono-nerd"
-    "breeze" 
-    "breeze5" 
-    "breeze-gtk" 
-    "papirus-icon-theme" 
-    "nwg-look" 
-    "networkmanager" 
-    "blueman"
-    "zsh"
-    "git"
-    "base-devel"
-)
-
-programas_para_instalar_aur=(
-    "pacseek"
-)
-
 instalar_yay(){
     echo -e "${VERDE}[INFO] - Verificando yay...${SEM_COR}"
 
@@ -197,14 +213,6 @@ instalar_yay(){
     rm -rf "$diretorio_temp"
 }
 
-servicos_para_iniciar=( 
-    "pipewire" 
-    "pipewire-pulse" 
-    "wireplumber" 
-    "pacseek" 
-    "bluetooth.service" 
-    "NetworkManager.service"
-)
 
 ## Habilitando serviços ##
 habilitando_servicos(){
@@ -213,7 +221,6 @@ habilitando_servicos(){
     case "$DISTRO" in
         void)
             ## Runit ##
-
             for nome_servico in "${servicos_para_iniciar_void[@]}"; do
                 if [ -L /var/service/"$nome_servico" ]; then
                     echo -e "${VERDE}[JÁ HABILITADO] - $nome_servico${SEM_COR}"
@@ -228,9 +235,22 @@ habilitando_servicos(){
                 fi
             done
         ;;
-        *)
+        arch)
             ## Systemctl ##
-            for nome_servico in "${servicos_para_iniciar[@]}"; do
+            for nome_servico in "${servicos_para_iniciar_arch[@]}"; do
+                if systemctl is-enabled --quiet "$nome_servico" 2>/dev/null; then
+                    echo -e "${VERDE}[JÁ HABILITADO] - $nome_servico${SEM_COR}"
+                else
+                    if sudo systemctl enable "$nome_servico"; then
+                        echo -e "${VERDE}[INFO] - Serviço $nome_servico habilitado${SEM_COR}"
+                    else
+                        echo -e "${VERMELHO}[ERROR] - Falha ao habilitar $nome_servico${SEM_COR}"
+                    fi
+                fi
+            done
+        ;;
+        *)
+            for nome_servico in "${servicos_para_iniciar_apt[@]}"; do
                 if systemctl is-enabled --quiet "$nome_servico" 2>/dev/null; then
                     echo -e "${VERDE}[JÁ HABILITADO] - $nome_servico${SEM_COR}"
                 else
@@ -295,7 +315,7 @@ instalando_programas_aur(){
             echo -e "${VERDE}[INSTALADO] - ${nome_do_programa}${SEM_COR}"
         else
             echo -e "${VERDE}[INFO] - Instalando ${nome_do_programa}...${SEM_COR}"
-            if ! yay -Sy --noconfirm "$nome_do_programa"; then
+            if ! yay -S --noconfirm "$nome_do_programa"; then
                 echo -e "${VERMELHO}[ERROR] - Falha ao instalar ${nome_do_programa}${SEM_COR}"
             fi
         fi
