@@ -339,6 +339,7 @@ detectar_distro(){
 }
 
 # -------------------------------EXECUÇÃO----------------------------------------- #
+
 testes_internet
 detectar_distro
 atualizar_sistema
