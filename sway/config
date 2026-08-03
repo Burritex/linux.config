@@ -24,7 +24,7 @@ exec_always waybar -c ~/.config/waybar/config-sway.jsonc -s ~/.config/waybar/sty
 ###############################################################################
 # Default wallpaper
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg ~/.config/sway/default_wallpaper.jpg fill
+output * bg ~/.config/utils/default_wallpaper.jpg fill
 
 gaps inner 5
 gaps outer 10
